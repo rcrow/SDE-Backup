@@ -119,4 +119,4 @@ msg = "\r\n".join([
     "To: " + ", ".join(toaddrs),
     "Subject: FYI: The SDE has been backed up on " + day + "/" + month + "/" + str(time.year) + " at " + hour +":" + minute,
     "", ""])
-sendEmail.sendEmail(fromaddr,toaddrs,msg)
+sendEmail(fromaddr,toaddrs,msg)
