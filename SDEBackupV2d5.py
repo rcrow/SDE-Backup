@@ -50,7 +50,7 @@ def checkAndDelete(CDpath):
     else:
         print(CDpath +": Does Not Exist")
 
-params = pandas.read_excel("backupParameters.xlsx")
+params = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx") #TODO this needs to be changed for other system configurations
 servers=params['SDE_server'].tolist()
 dbs=params['SDE_db'].tolist()
 prefix=params['Export_prefix'].tolist()
@@ -110,8 +110,9 @@ for i in range(0,len(servers)):
         print("Finished copying: " + table)
 
 #Email addresses for use in sending emails
-fromaddr = pandas.read_excel("backupParameters.xlsx", sheetname='email').iat[0,0] #get email address from param file
-toErrorAddrs = pandas.read_excel("backupParameters.xlsx", sheetname='email').iat[0,0]
+#TODO the paths to these files need to be changed for other system configurations
+fromaddr = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx", sheetname='email').iat[0,0] #get email address from param file
+toErrorAddrs = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx", sheetname='email').iat[0,0]
 toaddrs = ['crow.ryan@gmail.com','tfelger@usgs.gov']
 
 msg = "\r\n".join([
