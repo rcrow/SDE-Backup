@@ -3,9 +3,14 @@ import datetime
 import pandas #Tested with version 0.19.1
 import smtplib
 
+#INPUTS
+# TODO the path to this file needs to be changed for other system configurations
+excelFile = r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx"
+toaddrs = ['crow.ryan@gmail.com','tfelger@usgs.gov'] #TODO others will want to change this email addresses
+
 def sendEmail(fromaddr,toaddrs,msg):
     print("Sending an email")
-    params = pandas.read_excel("backupParameters.xlsx", sheetname='email')
+    params = pandas.read_excel(excelFile, sheetname='email')
     print(params)
     username=params.iat[0,0]
     password=params.iat[0,1]
@@ -50,7 +55,7 @@ def checkAndDelete(CDpath):
     else:
         print(CDpath +": Does Not Exist")
 
-params = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx") #TODO this needs to be changed for other system configurations
+params = pandas.read_excel(excelFile)
 servers=params['SDE_server'].tolist()
 dbs=params['SDE_db'].tolist()
 prefix=params['Export_prefix'].tolist()
@@ -110,14 +115,13 @@ for i in range(0,len(servers)):
         print("Finished copying: " + table)
 
 #Email addresses for use in sending emails
-#TODO the paths to these files need to be changed for other system configurations
-fromaddr = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx", sheetname='email').iat[0,0] #get email address from param file
-toErrorAddrs = pandas.read_excel(r"\\igswzcwwgsrio\loco\Team\Crow\_Python\SDEbackup\backupParameters.xlsx", sheetname='email').iat[0,0]
-toaddrs = ['crow.ryan@gmail.com','tfelger@usgs.gov']
+fromaddr = pandas.read_excel(excelFile, sheetname='email').iat[0,0] #get email address from param file
+toErrorAddrs = pandas.read_excel(excelFile, sheetname='email').iat[0,0]
+
 
 msg = "\r\n".join([
     "From: " + fromaddr,
     "To: " + ", ".join(toaddrs),
-    "Subject: FYI: The SDE has been backed up on " + day + "/" + month + "/" + str(time.year) + " at " + hour +":" + minute,
+    "Subject: FYI: The SDE has been backed up on " + month + "/" + day + "/" + str(time.year) + " at " + hour +":" + minute,
     "", ""])
 sendEmail(fromaddr,toaddrs,msg)
