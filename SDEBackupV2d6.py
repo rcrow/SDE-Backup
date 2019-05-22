@@ -68,7 +68,6 @@ date = datetimePrint()[1]
 time = datetimePrint()[2]
 start = datetimePrint()[3]
 
-
 params = pandas.read_excel(excelFile)
 servers=params['SDE_server'].tolist()
 dbs=params['SDE_db'].tolist()
